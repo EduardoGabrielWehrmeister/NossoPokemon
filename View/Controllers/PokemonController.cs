@@ -21,6 +21,8 @@ namespace View.Controllers
         // GET: Pokemon
         public ActionResult Index()
         {
+            List<Pokemon> pokemons = repositorio.ObterTodos("");
+            ViewBag.Pokemons = pokemons;
             return View();
         }
 
@@ -40,5 +42,35 @@ namespace View.Controllers
             repositorio.Inserir(pokemon);
             return RedirectToAction("Index");
         }
+
+        public ActionResult Apagar(int id)
+        {
+            repositorio.Apagar(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            Pokemon pokemon = repositorio.ObterPeloId(id);
+            ViewBag.Pokemon = pokemon;
+
+            CategoriaRepository categoriaRepository = new CategoriaRepository();
+            List<Categoria> categorias = categoriaRepository.ObterTodos();
+            ViewBag.Categorias = categorias;
+            return View();
+        }
+
+        public ActionResult Update(int id, string nome, int idCategoria)
+        {
+            Pokemon pokemon = new Pokemon();
+            pokemon.Id = id;
+            pokemon.Nome = nome;
+            pokemon.IdCategoria = idCategoria;
+            repositorio.Alterar(pokemon);
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

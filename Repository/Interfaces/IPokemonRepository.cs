@@ -17,6 +17,6 @@ namespace Repository.Interfaces
 
         List<Pokemon> ObterTodos(string pesquisa);
 
-        Pokemon ObterPeloid(int id);
+        Pokemon ObterPeloId(int id);
     }
 }
